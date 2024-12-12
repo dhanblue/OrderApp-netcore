@@ -1,20 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavComponent } from "./nav/nav.component";
 import { AcccountService } from './_services/acccount.service';
-import { HomeComponent } from "./home/home.component";
+ 
+import {  RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [  NavComponent, HomeComponent],
+  imports: [ RouterOutlet,  NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   private accountService = inject(AcccountService);
    ngOnInit(): void {
-  
-    this.setCurrentUser();
+      this.setCurrentUser();
   }
 
   setCurrentUser() {
