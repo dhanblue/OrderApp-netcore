@@ -19,8 +19,9 @@ namespace API.Controllers
         {
 
             if (await UserExists(register.Username)) return BadRequest("Username already exists");
+            return Ok();
 
-            using var hmac = new HMACSHA512();
+            /*using var hmac = new HMACSHA512();
 
             Users users = new Users
             {
@@ -37,7 +38,7 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = tokenService.CreateToken(user)
 
-            };
+            };*/
 
         }
 
