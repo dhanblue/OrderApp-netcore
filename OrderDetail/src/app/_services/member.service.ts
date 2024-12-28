@@ -4,6 +4,7 @@ import { AcccountService } from './acccount.service';
 import { environment } from '../../environments/environment';
 import { Member } from '../_models/member';
 import { of, tap } from 'rxjs';
+import { Photo } from '../_models/photo';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,24 @@ export class MemberService {
     return this.httpclient.put(this.baseUrl + 'users', member).pipe(
       tap(() => { this.members.update(members => members.map(m => m.userName === member.userName ? member : m)) })
     )
+  }
+
+  setMainPhoto(photo: Photo) {
+    return this.httpclient.put(this.baseUrl + 'users/set-main-photo/' + photo.id, {}).pipe(
+      tap(() => {
+        this.members.update(members => members.map(m => {
+          if (m.photos.includes(photo)) {
+            m.photoUrl = photo.url;
+          }
+          return m;
+        })
+
+        )
+      })
+    );
+  }
+
+  deletePhoto(photoId: number) {
+    return this.httpclient.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
 }
